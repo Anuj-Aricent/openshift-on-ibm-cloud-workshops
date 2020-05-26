@@ -16,6 +16,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag test-app-liberty:$(date +%s)
+           docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.API_TOKEN }} ${{ secrets.OC_DOCKER_REGISTORY }}
+           docker tag test-app-liberty:$(date +%s) ${{ secrets.OC_DOCKER_REGISTORY }}/poc-project/maven:3.5-jdk-8
+           docker push ${{ secrets.OC_DOCKER_REGISTORY }}/poc-project/maven:3.5-jdk-8
     - name: OpenShift Action
       uses: redhat-developer/openshift-actions@v1.1
       with:
@@ -24,3 +27,4 @@ jobs:
         parameters: '{"apitoken": "${{ secrets.API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
           'version'
+          'docker images'
