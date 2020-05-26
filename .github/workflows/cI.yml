@@ -15,12 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run:  docker build . --file Dockerfile --tag "${PCR_URL}"/poc-project/maven:3.5-jdk-8
-    - name: Authenticating with oc cred
-      run:  docker login -u "${USERNAME}" -p "${TOKEN}" "${PCR_URL}"
-    - name: Pushing Docker Image
-      run: docker push "${PCR_URL}"/poc-project/maven:3.5-jdk-8
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v1.1.0
+      with:
+        username: "${USERNAME}"
+        password: "${TOKEN}"
+        registry: "${PCR_URL}"
+        repository: "${PCR_URL}"
+        tags: latest
+        push: true
     - name: OpenShift Action
       uses: redhat-developer/openshift-actions@v1.1
       with:
