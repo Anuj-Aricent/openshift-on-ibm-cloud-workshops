@@ -20,7 +20,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.API_TOKEN }}
         registry: ${{ secrets.OC_DOCKER_REGISTORY }}
-        repository: ${{ secrets.OC_DOCKER_REGISTORY }}
+        repository: ${{ secrets.OC_DOCKER_REGISTORY }}/poc-project/
         tags: latest
         push: true
     - name: OpenShift Action
