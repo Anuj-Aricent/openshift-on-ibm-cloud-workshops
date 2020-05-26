@@ -5,22 +5,24 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
+env:
+  USERNAME: ${{ secrets.USERNAME }}
+  TOKEN: ${{ secrets.API_TOKEN }}
+  PCR_URL: ${{ secrets.OC_DOCKER_REGISTORY }}
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: |
-           docker build . --file Dockerfile --tag test-app-liberty:$(date +%s)
-           echo 'docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.API_TOKEN }} ${{ secrets.OC_DOCKER_REGISTORY }}'
-           docker login -u ${{ secrets.USERNAME }} --password-stdin ${{ secrets.API_TOKEN }} ${{ secrets.OC_DOCKER_REGISTORY }}
-           docker tag test-app-liberty:$(date +%s) ${{ secrets.OC_DOCKER_REGISTORY }}/poc-project/maven:3.5-jdk-8
-           docker push ${{ secrets.OC_DOCKER_REGISTORY }}/poc-project/maven:3.5-jdk-8
+      run:  docker build . --file Dockerfile --tag test-app-liberty:$(date +%s)
+    - name: Authenticating with oc cred
+            docker login -u "${USERNAME}" -p "${TOKEN}" "${PCR_URL}"
+    - name: Tagging Docker image
+           docker tag test-app-liberty:$(date +%s) "${PCR_URL}"/poc-project/maven:3.5-jdk-8
+    - name: Pushing Docker Image
+           docker push "${PCR_URL}"/poc-project/maven:3.5-jdk-8
     - name: OpenShift Action
       uses: redhat-developer/openshift-actions@v1.1
       with:
