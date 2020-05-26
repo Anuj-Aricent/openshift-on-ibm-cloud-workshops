@@ -18,10 +18,10 @@ jobs:
     - name: Build and push Docker images
       uses: docker/build-push-action@v1.1.0
       with:
-        username: ${USERNAME}
-        password: ${TOKEN}
-        registry: ${PCR_URL}
-        repository: ${PCR_URL}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.API_TOKEN }}
+        registry: ${{ secrets.OC_DOCKER_REGISTORY }
+        repository: ${{ secrets.OC_DOCKER_REGISTORY }
         tags: latest
         push: true
     - name: OpenShift Action
