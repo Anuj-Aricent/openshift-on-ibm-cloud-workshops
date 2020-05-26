@@ -20,7 +20,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.API_TOKEN }}
         registry: ${{ secrets.OC_DOCKER_REGISTORY }}
-        repository: docker-registry-default.nawrlplcluster1poc-82fc608792200e0c1f5d960e17be9976-0001.us-south.containers.appdomain.cloud/poc-project/
+        repository: poc-project
         tags: latest
         push: true
     - name: OpenShift Action
