@@ -17,6 +17,7 @@ jobs:
     - name: Build the Docker image
       run: |
            docker build . --file Dockerfile --tag test-app-liberty:$(date +%s)
+           echo 'docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.API_TOKEN }} ${{ secrets.OC_DOCKER_REGISTORY }}'
            docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.API_TOKEN }} ${{ secrets.OC_DOCKER_REGISTORY }}
            docker tag test-app-liberty:$(date +%s) ${{ secrets.OC_DOCKER_REGISTORY }}/poc-project/maven:3.5-jdk-8
            docker push ${{ secrets.OC_DOCKER_REGISTORY }}/poc-project/maven:3.5-jdk-8
