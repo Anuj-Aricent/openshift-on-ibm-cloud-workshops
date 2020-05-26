@@ -20,7 +20,7 @@ jobs:
     - name: Authenticating with oc cred
       run:  docker login -u "${USERNAME}" -p "${TOKEN}" "${PCR_URL}"
     - name: Pushing Docker Image
-      run:  docker push "${PCR_URL}"/poc-project/maven:3.5-jdk-8
+      run: docker push "${PCR_URL}"/poc-project/maven:3.5-jdk-8
     - name: OpenShift Action
       uses: redhat-developer/openshift-actions@v1.1
       with:
