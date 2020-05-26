@@ -22,7 +22,7 @@ jobs:
         registry: ${{ secrets.OC_DOCKER_REGISTORY }}
         repository: poc-project
         tags: latest
-        path: .
+        path: ../
         push: true
     - name: OpenShift Action
       uses: redhat-developer/openshift-actions@v1.1
