@@ -20,8 +20,8 @@ jobs:
       with:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.API_TOKEN }}
-        registry: ${{ secrets.OC_DOCKER_REGISTORY }
-        repository: ${{ secrets.OC_DOCKER_REGISTORY }
+        registry: ${{ secrets.OC_DOCKER_REGISTORY }}
+        repository: ${{ secrets.OC_DOCKER_REGISTORY }}
         tags: latest
         push: true
     - name: OpenShift Action
