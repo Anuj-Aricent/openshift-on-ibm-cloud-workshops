@@ -18,11 +18,11 @@ jobs:
     - name: Build the Docker image
       run:  docker build . --file Dockerfile --tag test-app-liberty:$(date +%s)
     - name: Authenticating with oc cred
-            docker login -u "${USERNAME}" -p "${TOKEN}" "${PCR_URL}"
+      run:  docker login -u "${USERNAME}" -p "${TOKEN}" "${PCR_URL}"
     - name: Tagging Docker image
-           docker tag test-app-liberty:$(date +%s) "${PCR_URL}"/poc-project/maven:3.5-jdk-8
+      run:  docker tag test-app-liberty:$(date +%s) "${PCR_URL}"/poc-project/maven:3.5-jdk-8
     - name: Pushing Docker Image
-           docker push "${PCR_URL}"/poc-project/maven:3.5-jdk-8
+      run:  docker push "${PCR_URL}"/poc-project/maven:3.5-jdk-8
     - name: OpenShift Action
       uses: redhat-developer/openshift-actions@v1.1
       with:
